@@ -2,7 +2,7 @@ meta:
   name: "posner"
   version: 0.0.1
   reduced_actions: Null
-  fullpoints: Null
+  fullpoints: 152
 graph:
   0:
     0:
