@@ -1,7 +1,23 @@
 meta:
-  name: "task-template"
+  name: "posner"
   version: 0.0.1
   reduced_actions: Null
   fullpoints: Null
 graph:
-  0: []
+  0:
+    0:
+      next: [1, 2]
+      prob: 0.5
+    skip: True
+  1:
+    0:
+      next: [3, 4]
+      prob: 0.8  # cue left
+  2:
+    0:
+      next: [4, 3]
+      prob: 0.8 # cue right
+  3: [5, 6]  # target / reward left
+  4: [6, 5]  # target /reward right
+  5: []  # Win
+  6: []  # Lose
