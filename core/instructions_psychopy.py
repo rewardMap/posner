@@ -24,7 +24,7 @@ def instructions_psychopy(instructions=instructions):
         fix = fixation_cross()
         part_0_0 = TextBox2(
             win=win,
-            text=instructions["posner"]["0.0"],
+            text=instructions["0.0"],
             letterHeight=28,
             pos=(0, 200),
         )
@@ -37,7 +37,7 @@ def instructions_psychopy(instructions=instructions):
     def part_1(win, instructions):
         part_1_0 = TextBox2(
             win=win,
-            text=instructions["posner"]["1.0"],
+            text=instructions["1.0"],
             letterHeight=28,
             pos=(0, 250),
         )
@@ -79,20 +79,20 @@ def instructions_psychopy(instructions=instructions):
 
         part_2_0 = TextBox2(
             win=win,
-            text=instructions["posner"]["2.0"],
+            text=instructions["2.0"],
             letterHeight=28,
             pos=(0, 250),
         )
         part_2_1 = TextBox2(
             win=win,
-            text=instructions["posner"]["2.1"],
+            text=instructions["2.1"],
             letterHeight=28,
             pos=(0, -10),
         )
 
         part_2_2 = TextBox2(
             win=win,
-            text=instructions["posner"]["2.2"],
+            text=instructions["2.2"],
             letterHeight=28,
             pos=(0, -250),
         )
@@ -103,7 +103,7 @@ def instructions_psychopy(instructions=instructions):
     def part_3(win, instructions):
         part_3_0 = TextBox2(
             win=win,
-            text=instructions["posner"]["3.0"],
+            text=instructions["3.0"],
             letterHeight=28,
             pos=(0, 0),
         )
@@ -114,7 +114,7 @@ def instructions_psychopy(instructions=instructions):
     def part_4(win, instructions):
         part_4_0 = TextBox2(
             win=win,
-            text=instructions["posner"]["4.0"],
+            text=instructions["4.0"],
             letterHeight=28,
             alignment="center",
         )
