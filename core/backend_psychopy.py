@@ -31,6 +31,7 @@ def get_psychopy_info(
         name="reward",
         position=(0, 150),
         bar_total=fullpoints,
+        rl_label="reward",
     )
 
     fix = ImageStimulus(
@@ -49,6 +50,7 @@ def get_psychopy_info(
                 duration=0.4,
                 positions=[(0, 0)],
                 name="cue",
+                rl_label="obs",
             ),
             fix_isi,
             ActionStimulus(
@@ -57,6 +59,7 @@ def get_psychopy_info(
                 timeout_action=0,
                 name="dummy",
                 name_timeout="dummy",
+                rl_label="action",
             ),
         ]
 
@@ -73,6 +76,8 @@ def get_psychopy_info(
                 images=[img1, img2],
                 flip_probability=0.5,
                 seed=seed,
+                rl_label="response",
+                target_rl_label="obs",
             )
         ]
 
