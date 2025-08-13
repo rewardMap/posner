@@ -4,6 +4,7 @@ try:
         ImageStimulus,
         StimuliWithResponse,
         ActionStimulus,
+        BaseStimulus
     )
     from ....stimuli import fixation_cross, posner_cue, posner_target
 
@@ -13,6 +14,7 @@ except ImportError:
         ImageStimulus,
         StimuliWithResponse,
         ActionStimulus,
+        BaseStimulus
     )
     from rewardgym.stimuli import fixation_cross, posner_cue, posner_target
 
@@ -65,6 +67,7 @@ def get_psychopy_info(
 
     def second_step(img1, img2, image_shift, to=1):
         return [
+            BaseStimulus(name=None, duration=0.0, rl_label="reward"),
             StimuliWithResponse(
                 duration=2.0,
                 key_dict=key_dict,
@@ -76,7 +79,7 @@ def get_psychopy_info(
                 images=[img1, img2],
                 flip_probability=0.5,
                 seed=seed,
-                rl_label="response",
+                rl_label="action",
                 target_rl_label="obs",
             )
         ]
@@ -84,7 +87,8 @@ def get_psychopy_info(
     final_step = [
         reward_feedback,
         ImageStimulus(
-            image_paths=[fixation_cross()], duration=0.4, name="iti", autodraw=False
+            image_paths=[fixation_cross()], duration=0.4, name="iti", autodraw=False,
+            rl_label="obs",
         ),
     ]
 
