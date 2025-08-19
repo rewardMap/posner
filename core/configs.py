@@ -7,7 +7,7 @@ except ImportError:
 
 
 def get_configs(stimulus_set: str = "1"):
-    seed = check_random_state(int(stimulus_set))
+    random_state = check_random_state(int(stimulus_set))
 
     condition_dict = {
         "cue-left-target-left": {0: {0: 1}, 1: {0: 3}},
@@ -50,7 +50,7 @@ def get_configs(stimulus_set: str = "1"):
 
     n_blocks_condition = 4
 
-    condition_template_sets = seed.choice(
+    condition_template_sets = random_state.choice(
         [
             condition_template_60_40 * 2,
             condition_template_70_30 * 2,
@@ -69,7 +69,7 @@ def get_configs(stimulus_set: str = "1"):
         reject = True
 
         while reject:
-            condition_template = seed.choice(
+            condition_template = random_state.choice(
                 a=condition_template_sets[cn], size=40, replace=False
             ).tolist()
 
@@ -79,8 +79,8 @@ def get_configs(stimulus_set: str = "1"):
                 len(conditions) == 0 or conditions[-1] != condition_template[0]
             ):
                 conditions.extend(condition_template)
-                isi.extend(seed.permutation(isi_template).tolist())
-                iti.extend(seed.permutation(iti_template).tolist())
+                isi.extend(random_state.permutation(isi_template).tolist())
+                iti.extend(random_state.permutation(iti_template).tolist())
                 reject = False
 
     config = {

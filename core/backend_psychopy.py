@@ -20,7 +20,7 @@ except ImportError:
 
 
 def get_psychopy_info(
-    seed=111,
+    random_state=111,
     key_dict={"left": 0, "right": 1},
     external_stimuli=None,
     fullpoints=None,
@@ -78,7 +78,7 @@ def get_psychopy_info(
                 positions=((-image_shift, 0), (image_shift, 0)),
                 images=[img1, img2],
                 flip_probability=0.5,
-                seed=seed,
+                random_state=random_state,
                 rl_label="action",
                 target_rl_label="obs",
             )
