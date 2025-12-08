@@ -1,12 +1,9 @@
-try:
-    from ....pygame_render import BaseText, BaseDisplay, feedback_block, BaseAction
-except ImportError:
-    from rewardgym.pygame_render import (
-        BaseText,
-        BaseDisplay,
-        feedback_block,
-        BaseAction,
-    )
+from rewardgym.pygame_render import (
+    BaseText,
+    BaseDisplay,
+    feedback_block,
+    BaseAction,
+)
 
 
 def get_pygame_info(action_map, window_size=256):

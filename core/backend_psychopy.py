@@ -1,22 +1,11 @@
-try:
-    from ....psychopy_render import (
-        FeedBackStimulus,
-        ImageStimulus,
-        StimuliWithResponse,
-        ActionStimulus,
-        BaseStimulus
-    )
-    from ....stimuli import fixation_cross, posner_cue, posner_target
-
-except ImportError:
-    from rewardgym.psychopy_render import (
-        FeedBackStimulus,
-        ImageStimulus,
-        StimuliWithResponse,
-        ActionStimulus,
-        BaseStimulus
-    )
-    from rewardgym.stimuli import fixation_cross, posner_cue, posner_target
+from rewardgym.psychopy_render import (
+    FeedBackStimulus,
+    ImageStimulus,
+    StimuliWithResponse,
+    ActionStimulus,
+    BaseStimulus
+)
+from rewardgym.stimuli import fixation_cross, posner_cue, posner_target
 
 
 def get_psychopy_info(
