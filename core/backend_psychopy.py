@@ -56,7 +56,7 @@ def get_psychopy_info(
 
     def second_step(img1, img2, image_shift, to=1):
         return [
-            BaseStimulus(name=None, duration=0.0, rl_label="reward"),
+            BaseStimulus(name="second-stage", duration=None, noflip=True, rl_label="reward"),
             StimuliWithResponse(
                 duration=2.0,
                 key_dict=key_dict,
