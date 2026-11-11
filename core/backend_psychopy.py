@@ -6,6 +6,8 @@ from rewardgym.psychopy_render import (
     BaseStimulus
 )
 from rewardgym.stimuli import fixation_cross, posner_cue, posner_target
+from rewardgym.render.passive_routines import PresentationRoutine, FeedBackRoutine
+from rewardgym.render import ImageDefinition
 
 
 def get_psychopy_info(
@@ -15,31 +17,30 @@ def get_psychopy_info(
     fullpoints=None,
     **kwargs,
 ):
-    reward_feedback = FeedBackStimulus(
-        1.0,
-        text="{0}",
-        target="reward",
-        name="reward",
-        position=(0, 150),
-        bar_total=fullpoints,
-        rl_label="reward",
+
+    reward_feedback = FeedBackRoutine(
+        duration=1.0, name="reward", bar_total=fullpoints, rl_label="reward"
     )
 
-    fix = ImageStimulus(
-        image_paths=[fixation_cross()], duration=0.5, name="fixation", autodraw=True
+    fix = PresentationRoutine(
+        stimulus_definitions=[ImageDefinition(image=fixation_cross(), name="fixation", autoDraw=True)], duration=0.5, name="fixation"
     )
 
-    fix_isi = ImageStimulus(
-        image_paths=[fixation_cross()], duration=0.4, name="isi", autodraw=False
+    fix_isi = PresentationRoutine(
+                stimulus_definitions=[ImageDefinition(image=fixation_cross(), name="fixation", autoDraw=True)],
+                duration=0.4, name="isi"
     )
 
     def first_step(img):
         return [
             fix,
-            ImageStimulus(
-                image_paths=[img],
+            PresentationRoutine(
+                stimulus_definitions=[ImageDefinition(
+                    image=img,
+                    pos=(0, 0),
+                    name="cue",
+                )],
                 duration=0.4,
-                positions=[(0, 0)],
                 name="cue",
                 rl_label="obs",
             ),
@@ -56,7 +57,7 @@ def get_psychopy_info(
 
     def second_step(img1, img2, image_shift, to=1):
         return [
-            BaseStimulus(name="second-stage", duration=None, noflip=True, rl_label="reward"),
+            BaseStimulus(name="second-stage", duration=None, flip=False, rl_label="reward"),
             StimuliWithResponse(
                 duration=2.0,
                 key_dict=key_dict,
