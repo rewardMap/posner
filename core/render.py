@@ -5,7 +5,7 @@ from rewardgym.render.routines import (
     PresentationRoutine,
 )
 from rewardgym.render.routines import ActionRoutine
-from rewardgym.stimuli import fixation_cross, posner_cue, posner_target
+from rewardgym.render.stimuli import fixation_cross, posner_cue, posner_target
 
 
 def get_render_info(
