@@ -1,10 +1,10 @@
 from rewardgym.render import ImageDefinition
-from rewardgym.render.passive_routines import (
+from rewardgym.render.routines import (
     DynamicRoutine,
     FeedBackRoutine,
     PresentationRoutine,
 )
-from rewardgym.render.response_routines import ActionRoutine
+from rewardgym.render.routines import ActionRoutine
 from rewardgym.stimuli import fixation_cross, posner_cue, posner_target
 
 
