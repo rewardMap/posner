@@ -3,7 +3,7 @@ from rewardgym.render.passive_routines import PresentationRoutine, FeedBackRouti
 from rewardgym.render import ImageDefinition
 from rewardgym.render.response_routines import ActionRoutine
 
-def get_psychopy_info(
+def get_render_info(
     random_state=111,
     key_dict={"left": 0, "right": 1},
     external_stimuli=None,
@@ -114,25 +114,25 @@ def get_psychopy_info(
     ]
 
     info_dict = {
-        0: {"psychopy": []},
-        1: {"psychopy": first_step(posner_cue(left=True))},
-        2: {"psychopy": first_step(posner_cue(left=False))},
+        0: {"render": []},
+        1: {"render": first_step(posner_cue(left=True))},
+        2: {"render": first_step(posner_cue(left=False))},
         3: {
-            "psychopy": second_step(
+            "render": second_step(
                 posner_target(target=True),
                 posner_target(target=False),
                 image_shift=550,
             )
         },
         4: {
-            "psychopy": second_step(
+            "render": second_step(
                 posner_target(target=False),
                 posner_target(target=True),
                 image_shift=550,
             )
         },
-        5: {"psychopy": final_step},
-        6: {"psychopy": final_step},
+        5: {"render": final_step},
+        6: {"render": final_step},
     }
 
     return info_dict, None
