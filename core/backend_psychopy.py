@@ -1,14 +1,7 @@
-from rewardgym.psychopy_render import (
-    FeedBackStimulus,
-    ImageStimulus,
-    StimuliWithResponse,
-    ActionStimulus,
-    BaseStimulus
-)
 from rewardgym.stimuli import fixation_cross, posner_cue, posner_target
-from rewardgym.render.passive_routines import PresentationRoutine, FeedBackRoutine
+from rewardgym.render.passive_routines import PresentationRoutine, FeedBackRoutine, DynamicRoutine
 from rewardgym.render import ImageDefinition
-
+from rewardgym.render.response_routines import ActionRoutine
 
 def get_psychopy_info(
     random_state=111,
@@ -45,7 +38,7 @@ def get_psychopy_info(
                 rl_label="obs",
             ),
             fix_isi,
-            ActionStimulus(
+            ActionRoutine(
                 duration=0.0,
                 key_dict={"space": 0},
                 timeout_action=0,
@@ -55,29 +48,67 @@ def get_psychopy_info(
             ),
         ]
 
-    def second_step(img1, img2, image_shift, to=1):
+    def flip_horizontal_callback(routine, context):
+        routine.draw_list = []
+        probability = 0.5
+        flip = context.env_context.random_state.random() < probability
+
+        for ii in routine.stimuli:
+            if hasattr(ii, "flip"):
+                ii.flip = [False, flip]
+
+            routine.draw_list.append(ii)
+
+        return {"extra_infos": {"misc": f"flip-{flip}"}}
+
+    def unflip(routine, context, state):
+        for ii in routine.stimuli:
+            if hasattr(ii, "flip"):
+                ii.flip = [False, False]
+
+
+    def second_step(img1, img2, image_shift):
         return [
-            BaseStimulus(name="second-stage", duration=None, flip=False, rl_label="reward"),
-            StimuliWithResponse(
+            PresentationRoutine(name="second-stage", duration=None, flip=False, rl_label="reward"),
+            DynamicRoutine(
+                duration=0.35,
+                name="target",
+                stimulus_definitions=[
+                    ImageDefinition(
+                        name="img-left",
+                        pos=(-image_shift, 0),
+                        image=img1
+                    ),
+                    ImageDefinition(
+                        name="img-right",
+                        pos=(image_shift, 0),
+                        image=img2
+                    )
+                ],
+                rl_label="obs",
+                callback_before_draw=flip_horizontal_callback,
+                callback_after_draw=unflip
+            ),
+            ActionRoutine(
                 duration=2.0,
                 key_dict=key_dict,
                 name="response",
-                target_name="target",
-                target_duration=0.35,
                 timeout_action=None,
-                positions=((-image_shift, 0), (image_shift, 0)),
-                images=[img1, img2],
-                flip_probability=0.5,
-                random_state=random_state,
                 rl_label="action",
-                target_rl_label="obs",
             )
         ]
 
     final_step = [
         reward_feedback,
-        ImageStimulus(
-            image_paths=[fixation_cross()], duration=0.4, name="iti", autodraw=False,
+        PresentationRoutine(
+            stimulus_definitions=[
+                ImageDefinition(
+                    image=fixation_cross(),
+                    name="fix",
+                    pos=(0, 0)
+                )
+            ],
+            duration=0.4, name="iti",
             rl_label="obs",
         ),
     ]
@@ -91,7 +122,6 @@ def get_psychopy_info(
                 posner_target(target=True),
                 posner_target(target=False),
                 image_shift=550,
-                to=None,
             )
         },
         4: {
@@ -99,7 +129,6 @@ def get_psychopy_info(
                 posner_target(target=False),
                 posner_target(target=True),
                 image_shift=550,
-                to=None,
             )
         },
         5: {"psychopy": final_step},
