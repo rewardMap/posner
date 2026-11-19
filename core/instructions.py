@@ -1,8 +1,8 @@
 import json
 import pathlib
 
-from rewardgym.render.stimuli import fixation_cross, posner_cue, posner_target
 from rewardgym.render.routines.passive_routines import InstructionRoutine
+from rewardgym.render.stimuli import fixation_cross, posner_cue, posner_target
 from rewardgym.render.stimulus_definitions import ImageDefinition, TextDefinition
 
 instructions_path = (
