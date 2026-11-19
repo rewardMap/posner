@@ -4,7 +4,7 @@ from rewardgym.render.routines import (
     FeedBackRoutine,
     PresentationRoutine,
 )
-from rewardgym.render.routines import ActionRoutine
+from rewardgym.render.routines import ActionRoutine, AutoAction
 from rewardgym.render.stimuli import fixation_cross, posner_cue, posner_target
 
 
@@ -45,14 +45,11 @@ def get_render_info(
                 rl_label="obs",
             ),
             fix_isi,
-            ActionRoutine(
-                duration=0.0,
+            AutoAction(
+                name="auto-transition",
                 key_dict={"space": 0},
-                timeout_action=0,
-                name="dummy",
-                name_timeout="dummy",
                 rl_label="action",
-            ),
+            )
         ]
 
     def flip_horizontal_callback(routine, context):
